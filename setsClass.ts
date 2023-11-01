@@ -13,11 +13,12 @@
  */
 
 class MySet {
+  collection: Array<number | string>
   constructor() {
     this.collection = [];
   }
 
-  has(element) {
+  has(element: number | string) {
     return this.collection.indexOf(element) !== -1;
   }
 
@@ -29,7 +30,7 @@ class MySet {
     return this.collection.length;
   }
 
-  add(element) {
+  add(element: number | string) {
     if (!this.has(element)) {
       this.collection.push(element);
       return true;
@@ -37,7 +38,7 @@ class MySet {
     return false;
   }
 
-  remove(element) {
+  remove(element: number | string) {
     if (this.has(element)) {
       const index = this.collection.indexOf(element);
       this.collection.splice(index, 1);
@@ -46,7 +47,7 @@ class MySet {
     return false;
   }
 
-  union(otherSet) {
+  union(otherSet: MySet) {
     var unionSet = new MySet();
     var firstSet = this.values();
     var secondSet = otherSet.values();
@@ -60,7 +61,7 @@ class MySet {
     return unionSet.values();
   }
 
-  intersection(otherSet) {
+  intersection(otherSet: MySet) {
     var intersectionSet = new MySet();
     var firstSet = this.values();
     firstSet.forEach((value) => {
@@ -71,7 +72,7 @@ class MySet {
     return intersectionSet.values();
   }
 
-  difference(otherSet) {
+  difference(otherSet: MySet) {
     var differenceSet = new MySet();
     var firstSet = this.values();
     firstSet.forEach((value) => {
@@ -82,10 +83,26 @@ class MySet {
     return differenceSet.values();
   }
 
-  subset(otherSet) {
+  subset(otherSet: MySet) {
     var firstSet = this.values();
     return firstSet.every((value) => {
       return otherSet.has(value);
     });
   }
 }
+
+const setOne = new MySet()
+const setTwo = new MySet()
+
+setOne.add(1);
+setOne.add(2);
+setOne.add("a");
+setOne.add("b");
+setTwo.add(1);
+setTwo.add(3);
+setTwo.add("a");
+setTwo.add("d");
+
+console.log(setOne.union(setTwo));
+console.log(setOne.intersection(setTwo));
+console.log(setOne.difference(setTwo));
